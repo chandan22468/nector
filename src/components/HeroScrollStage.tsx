@@ -1,12 +1,9 @@
-import React, { useRef, useEffect, useState, lazy, Suspense } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { Hero3DCanvas } from './Hero3DCanvas';
 import { ShoppingBag, ChevronRight } from 'lucide-react';
-import { MagneticButton } from './MagneticButton';
-
-const Hero3DCanvas = lazy(() => import('./Hero3DCanvas'));
 
 interface HeroScrollStageProps {
   onOpenCart?: () => void;
-  isReady?: boolean;
 }
 
 /**
@@ -34,7 +31,7 @@ function getScrollWindow(
   return { opacity: 0, translateY: -16 };
 }
 
-export const HeroScrollStage: React.FC<HeroScrollStageProps> = ({ onOpenCart, isReady = true }) => {
+export const HeroScrollStage: React.FC<HeroScrollStageProps> = ({ onOpenCart }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -182,59 +179,18 @@ export const HeroScrollStage: React.FC<HeroScrollStageProps> = ({ onOpenCart, is
         
         {/* Subtle, Warm Center Studio Glow */}
         <div
-          className="absolute inset-0 pointer-events-none transition-opacity duration-300 will-change-transform"
+          className="absolute inset-0 pointer-events-none transition-opacity duration-300"
           style={{
-            background: `radial-gradient(circle at 50% 48%, rgba(255, 120, 25, ${glowAlpha}) 0%, rgba(35, 20, 12, 0.40) 40%, rgba(3, 2, 1, 0) 70%)`,
-            transform: prefersReducedMotion ? 'none' : `translateY(${progress * 60}px)`,
+            background: `radial-gradient(circle at 50% 48%, rgba(255, 120, 25, ${glowAlpha}) 0%, rgba(35, 20, 12, 0.40) 40%, rgba(3, 2, 1, 0) 70%)`
           }}
         />
 
-        {/* Sparse Floating Sunlit Dust Bokeh (Sun-Dried Orchard Warmth) */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-          {[
-            { top: '22%', left: '28%', size: 4, delay: '0s', dur: '9s' },
-            { top: '34%', left: '68%', size: 6, delay: '2s', dur: '12s' },
-            { top: '56%', left: '24%', size: 5, delay: '1s', dur: '10s' },
-            { top: '64%', left: '74%', size: 3, delay: '3.5s', dur: '13s' },
-            { top: '18%', left: '52%', size: 5, delay: '4s', dur: '11s' },
-            { top: '76%', left: '44%', size: 4, delay: '2.5s', dur: '8.5s' },
-          ].map((b, idx) => (
-            <div
-              key={idx}
-              style={{
-                top: b.top,
-                left: b.left,
-                width: `${b.size}px`,
-                height: `${b.size}px`,
-                animation: prefersReducedMotion ? 'none' : `bokeh-drift ${b.dur} ease-in-out infinite alternate`,
-                animationDelay: b.delay,
-              }}
-              className="absolute rounded-full bg-[#ffaa33] opacity-35 blur-[1px] shadow-[0_0_8px_rgba(255,170,51,0.6)]"
-            />
-          ))}
-        </div>
-
         {/* Centerpiece REAL-TIME 3D WebGL Jar with Packed Fruit Gummies */}
-        <div
-          className={`absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none z-10 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isReady ? 'scale-100 opacity-100 drop-shadow-[0_20px_45px_rgba(255,138,30,0.22)]' : 'scale-90 opacity-0'
-          }`}
-        >
-          <Suspense
-            fallback={
-              <div className="flex flex-col items-center justify-center space-y-4 animate-pulse">
-                <div className="w-14 h-14 rounded-full border-2 border-[#ff8a1e]/20 border-t-[#ff8a1e] animate-spin" />
-                <span className="font-tech text-xs tracking-[0.25em] text-[#ff8a1e]/80 uppercase">
-                  CRAFTING CONFECTION...
-                </span>
-              </div>
-            }
-          >
-            <Hero3DCanvas
-              progress={progress}
-              prefersReducedMotion={prefersReducedMotion}
-            />
-          </Suspense>
+        <div className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none z-10">
+          <Hero3DCanvas
+            progress={progress}
+            prefersReducedMotion={prefersReducedMotion}
+          />
         </div>
 
         {/* =========================================================================
@@ -404,7 +360,7 @@ export const HeroScrollStage: React.FC<HeroScrollStageProps> = ({ onOpenCart, is
           {/* Headline */}
           <h1
             style={{ opacity: headlineOpacity, transform: `translateY(${headlineY}px)` }}
-            className="font-display fluid-hero-headline font-black tracking-tight text-[#f4ede4] mb-4 will-change-transform"
+            className="font-display text-5xl lg:text-6xl font-black tracking-tight text-[#f4ede4] leading-[1.06] mb-4 will-change-transform"
           >
             Pure Fruit Nectar<br />
             <span className="text-[#ff8a1e]">From Sunlit<br />Orchards</span>
@@ -421,22 +377,13 @@ export const HeroScrollStage: React.FC<HeroScrollStageProps> = ({ onOpenCart, is
             style={{ opacity: ctaOpacity, transform: `translateY(${ctaY}px)` }}
             className="flex items-center space-x-4 will-change-transform"
           >
-            <MagneticButton
-              type="button"
+            <button
               onClick={onOpenCart}
-              aria-label="Experience Nectar - open cart"
-              className="group inline-flex items-center space-x-2.5 px-6 py-3 rounded-full bg-[#ff8a1e] hover:bg-[#ff9c3a] text-[#0b0704] font-bold text-xs tracking-wider uppercase transition-all shadow-[0_0_25px_rgba(255,138,30,0.35)] cursor-pointer focus-visible:ring-2 focus-visible:ring-white"
+              className="inline-flex items-center space-x-2.5 px-6 py-3 rounded-full bg-[#ff8a1e] hover:bg-[#ff9c3a] text-[#0b0704] font-bold text-xs tracking-wider uppercase transition-all shadow-[0_0_25px_rgba(255,138,30,0.35)] cursor-pointer"
             >
-              <span className="relative inline-block overflow-hidden h-[1.25em] leading-[1.25em]">
-                <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">
-                  EXPERIENCE NECTAR
-                </span>
-                <span className="absolute left-0 top-full inline-block transition-transform duration-300 group-hover:-translate-y-full">
-                  EXPERIENCE NECTAR
-                </span>
-              </span>
-              <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </MagneticButton>
+              <span>EXPERIENCE NECTAR</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
 
@@ -469,9 +416,7 @@ export const HeroScrollStage: React.FC<HeroScrollStageProps> = ({ onOpenCart, is
 
         {/* Bottom Right Floating Quick Action (Revealed smoothly along with hero) */}
         <button
-          type="button"
           onClick={onOpenCart}
-          aria-label="Quick buy now - open cart"
           style={{
             opacity: buyNowOpacity,
             transform: `translateY(${buyNowY}px)`,

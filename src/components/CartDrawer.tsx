@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { X, ShoppingBag, Plus, Minus, ShieldCheck, Truck, Sparkles } from 'lucide-react';
 import { BRAND_NAME } from '../data/productData';
 import { ASSETS } from '../assets/images';
@@ -17,18 +17,6 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
   const pricePerUnit = 48; // Luxury confectionery price ($48 for 450G artisan apothecary jar)
   const totalPrice = pricePerUnit * quantity;
 
-  // Handle escape key to close drawer
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
-
   const handleCheckout = () => {
     setIsCheckingOut(true);
     setTimeout(() => {
@@ -40,17 +28,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="cart-drawer-title"
-      className="fixed inset-0 z-50 overflow-hidden"
-    >
+    <div className="fixed inset-0 z-50 overflow-hidden">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/75 backdrop-blur-sm transition-opacity duration-500 cursor-pointer"
+        className="absolute inset-0 bg-black/75 backdrop-blur-sm transition-opacity duration-500"
         onClick={onClose}
-        aria-hidden="true"
       />
 
       {/* Slide-over panel */}
@@ -61,15 +43,13 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
           <div className="p-6 border-b border-[#261c14] flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <ShoppingBag className="w-5 h-5 text-[#ff8a1e]" />
-              <h3 id="cart-drawer-title" className="font-display text-xl font-bold tracking-tight text-[#f4ede4]">
+              <h3 className="font-display text-xl font-bold tracking-tight text-[#f4ede4]">
                 Your Selection
               </h3>
             </div>
             <button
-              type="button"
               onClick={onClose}
-              aria-label="Close cart drawer"
-              className="p-1.5 rounded-full hover:bg-[#261c14] text-[#9c8f80] hover:text-[#f4ede4] transition-colors cursor-pointer focus-visible:ring-1 focus-visible:ring-[#ff8a1e]"
+              className="p-1.5 rounded-full hover:bg-[#261c14] text-[#9c8f80] hover:text-[#f4ede4] transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -128,10 +108,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
                     <div className="flex items-center justify-between mt-3">
                       <div className="flex items-center space-x-3 bg-[#0b0704] border border-[#2e2117] rounded-full px-3 py-1">
                         <button
-                          type="button"
                           onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                          aria-label="Decrease quantity"
-                          className="text-[#9c8f80] hover:text-[#f4ede4] p-0.5 cursor-pointer focus-visible:text-[#ff8a1e]"
+                          className="text-[#9c8f80] hover:text-[#f4ede4] p-0.5"
                         >
                           <Minus className="w-3.5 h-3.5" />
                         </button>
@@ -139,10 +117,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
                           {quantity}
                         </span>
                         <button
-                          type="button"
                           onClick={() => setQuantity(quantity + 1)}
-                          aria-label="Increase quantity"
-                          className="text-[#9c8f80] hover:text-[#f4ede4] p-0.5 cursor-pointer focus-visible:text-[#ff8a1e]"
+                          className="text-[#9c8f80] hover:text-[#f4ede4] p-0.5"
                         >
                           <Plus className="w-3.5 h-3.5" />
                         </button>

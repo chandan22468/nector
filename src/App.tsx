@@ -2,37 +2,21 @@ import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { HeroScrollStage } from './components/HeroScrollStage';
 import { ProductSpecSection } from './components/ProductSpecSection';
-import { FarmToJarStrip } from './components/FarmToJarStrip';
 import { IngredientListSection } from './components/IngredientListSection';
 import { MarqueeTextSection } from './components/MarqueeTextSection';
 import { CircularRingSection } from './components/CircularRingSection';
 import { FooterStatsSection } from './components/FooterStatsSection';
 import { CartDrawer } from './components/CartDrawer';
 import { ExportFramesModal } from './components/ExportFramesModal';
-import { CinematicPreloader } from './components/CinematicPreloader';
-import { CustomCursor } from './components/CustomCursor';
-import { MagneticButton } from './components/MagneticButton';
-import { useLenis } from './lib/useLenis';
 import { ShoppingBag } from 'lucide-react';
 
 export default function App() {
-  useLenis();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isExporterOpen, setIsExporterOpen] = useState(false);
-  const [isPreloaded, setIsPreloaded] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#0b0704] text-[#f4ede4] relative selection:bg-[#ff8a1e] selection:text-[#0b0704]">
       
-      {/* Subtle Gourmet Filmic Grain Texture Overlay */}
-      <div className="filmic-grain" aria-hidden="true" />
-
-      {/* Luxury Gold Inertia Cursor (Desktop Only) */}
-      <CustomCursor />
-
-      {/* 0. Cinematic Luxury Preloader ("From the Orchard") */}
-      <CinematicPreloader onComplete={() => setIsPreloaded(true)} />
-
       {/* 1. Fixed Sticky Top Navigation */}
       <Navbar
         onOpenCart={() => setIsCartOpen(true)}
@@ -41,15 +25,12 @@ export default function App() {
 
       {/* 2. Pinned Hero Scroll-Animation (The Centerpiece) */}
       <main>
-        <HeroScrollStage onOpenCart={() => setIsCartOpen(true)} isReady={isPreloaded} />
+        <HeroScrollStage onOpenCart={() => setIsCartOpen(true)} />
 
         {/* 3. Product Spec Section */}
         <ProductSpecSection />
 
-        {/* 4. Farm to Jar 4-Stage Provenance Journey */}
-        <FarmToJarStrip />
-
-        {/* 5. Ingredient / Feature List Section */}
+        {/* 4. Ingredient / Feature List Section */}
         <IngredientListSection />
 
         {/* 5. Tiled Marquee Background Text Section */}
@@ -64,25 +45,18 @@ export default function App() {
 
       {/* Persistent Floating "BUY NOW" Pill (Matching Reference Video Bottom-Right Layout) */}
       <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-40">
-        <MagneticButton
-          type="button"
+        <button
           id="btn-floating-buy-now"
           onClick={() => setIsCartOpen(true)}
-          aria-label="Open cart and buy now"
-          className="group flex items-center space-x-2.5 px-5 py-3 rounded-full bg-[#140e0a]/90 hover:bg-[#1f150f] border border-[#ff8a1e] text-[#f4ede4] font-display font-bold text-xs md:text-sm tracking-wider uppercase backdrop-blur-md shadow-[0_0_30px_rgba(255,138,30,0.35)] hover:shadow-[0_0_40px_rgba(255,138,30,0.6)] cursor-pointer focus-visible:ring-2 focus-visible:ring-white"
+          className="group flex items-center space-x-2.5 px-5 py-3 rounded-full bg-[#140e0a]/90 hover:bg-[#1f150f] border border-[#ff8a1e] text-[#f4ede4] font-display font-bold text-xs md:text-sm tracking-wider uppercase backdrop-blur-md shadow-[0_0_30px_rgba(255,138,30,0.35)] hover:shadow-[0_0_40px_rgba(255,138,30,0.6)] transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer"
         >
           <div className="w-6 h-6 rounded-full bg-[#ff8a1e] text-[#0b0704] flex items-center justify-center group-hover:rotate-12 transition-transform">
             <ShoppingBag className="w-3.5 h-3.5" />
           </div>
-          <span className="relative inline-block overflow-hidden h-[1.25em] leading-[1.25em] text-[#f4ede4] group-hover:text-[#ffaa33] transition-colors">
-            <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">
-              BUY NOW
-            </span>
-            <span className="absolute left-0 top-full inline-block transition-transform duration-300 group-hover:-translate-y-full">
-              BUY NOW
-            </span>
+          <span className="text-[#f4ede4] group-hover:text-[#ff8a1e] transition-colors">
+            BUY NOW
           </span>
-        </MagneticButton>
+        </button>
       </div>
 
       {/* Slide-over Luxury Cart Drawer */}
