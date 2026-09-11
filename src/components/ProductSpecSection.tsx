@@ -2,21 +2,18 @@ import React from 'react';
 import { ASSETS } from '../assets/images';
 import { PRODUCT_SPEC } from '../data/productData';
 import { Sparkles, ShieldCheck, Droplets, CheckCircle2 } from 'lucide-react';
-import { useInView } from '../lib/useInView';
 
 export const ProductSpecSection: React.FC = () => {
-  const { ref, isInView } = useInView({ threshold: 0.15 });
-
   return (
     <section id="specs" className="relative py-28 md:py-40 bg-[#0b0704] text-[#f4ede4] border-t border-[#1f1711] overflow-hidden">
       {/* Background ambient glow */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-radial-hero pointer-events-none opacity-40 blur-2xl" />
 
-      <div ref={ref} className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* Left Column (Headline + Subheading + Description + Feature Bullets) */}
-          <div className={`lg:col-span-7 flex flex-col space-y-6 reveal-fade-up ${isInView ? 'is-revealed' : ''}`}>
+          <div className="lg:col-span-7 flex flex-col space-y-6">
             
             {/* Technical Subheading Line */}
             <div className="flex items-center space-x-3 text-xs md:text-sm font-tech text-[#ff8a1e] tracking-widest uppercase">
@@ -25,7 +22,7 @@ export const ProductSpecSection: React.FC = () => {
             </div>
 
             {/* Heavy Display Headline */}
-            <h2 className="font-display fluid-section-headline font-black tracking-tight text-[#f4ede4]">
+            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-[#f4ede4] leading-[1.08]">
               {PRODUCT_SPEC.headline}
             </h2>
 
@@ -34,29 +31,8 @@ export const ProductSpecSection: React.FC = () => {
               {PRODUCT_SPEC.description}
             </p>
 
-            {/* Gourmet Trust Badges with One-Time Gold Shimmer Sweep */}
-            <div className="flex flex-wrap items-center gap-2.5 pt-2">
-              {[
-                { label: '100% Natural Harvest', icon: Sparkles },
-                { label: 'Lab Tested Purity', icon: ShieldCheck },
-                { label: 'No Added Sugar', icon: Droplets },
-                { label: 'Rich in Fiber & Protein', icon: Sparkles },
-              ].map((badge, idx) => (
-                <div
-                  key={idx}
-                  style={{ animationDelay: `${idx * 180}ms` }}
-                  className={`inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-full border border-[#ffaa33]/30 bg-[#160f09]/80 backdrop-blur-sm text-xs font-tech text-[#f4ede4] shadow-[0_2px_12px_rgba(255,170,51,0.08)] ${
-                    isInView ? 'gold-shimmer-badge' : ''
-                  }`}
-                >
-                  <badge.icon className="w-3 h-3 text-[#ffaa33]" />
-                  <span>{badge.label}</span>
-                </div>
-              ))}
-            </div>
-
             {/* Bullet Points with Clean Minimal Badges */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
               {PRODUCT_SPEC.bulletPoints.map((point, index) => (
                 <div
                   key={index}
@@ -91,13 +67,13 @@ export const ProductSpecSection: React.FC = () => {
           </div>
 
           {/* Right Column (Rotated Product Shot + Floating Numeric Callout) */}
-          <div className={`lg:col-span-5 relative flex items-center justify-center reveal-fade-up delay-200 ${isInView ? 'is-revealed' : ''}`}>
+          <div className="lg:col-span-5 relative flex items-center justify-center">
             
             {/* Ambient Radial Spotlight */}
             <div className="absolute inset-0 bg-gradient-to-tr from-[#ff8a1e]/15 to-teal-500/10 rounded-full blur-3xl" />
 
             {/* Rotated / Angled Product Image */}
-            <div data-cursor="view" className="relative z-10 group transition-transform duration-700 hover:scale-105 cursor-pointer">
+            <div className="relative z-10 group transition-transform duration-700 hover:scale-105">
               <img
                 src={ASSETS.jarSpec}
                 alt="NÉCTAR 450G Apothecary Specimen"

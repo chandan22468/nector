@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingBag, Sparkles, Sliders } from 'lucide-react';
 import { BRAND_NAME, BRAND_VERSION } from '../data/productData';
-import { MagneticButton } from './MagneticButton';
 
 interface NavbarProps {
   onOpenCart: () => void;
@@ -49,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart, onOpenExporter }) =>
         </div>
 
         {/* Center: Nav links */}
-        <nav aria-label="Site sections" className="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wider uppercase text-[#a69888]">
+        <nav className="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wider uppercase text-[#9c8f80]">
           <a
             href="#hero"
             id="nav-link-hero"
@@ -84,35 +83,24 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart, onOpenExporter }) =>
         <div className="flex items-center space-x-3">
           {/* Frame Sequence Exporter / Debug Inspector */}
           <button
-            type="button"
             id="btn-frame-exporter"
             onClick={onOpenExporter}
-            aria-label="Inspect and export 3D WebP frames"
             title="Inspect & Export 120 3D WEBP Frames"
-            className="hidden sm:inline-flex items-center space-x-2 px-3 py-1.5 rounded-full border border-[#382b20] text-xs font-tech text-[#9c8f80] hover:text-[#f4ede4] hover:border-[#ff8a1e] transition-all bg-[#140e0a]/60 cursor-pointer focus-visible:ring-1 focus-visible:ring-[#ff8a1e]"
+            className="hidden sm:inline-flex items-center space-x-2 px-3 py-1.5 rounded-full border border-[#382b20] text-xs font-tech text-[#9c8f80] hover:text-[#f4ede4] hover:border-[#ff8a1e] transition-all bg-[#140e0a]/60 cursor-pointer"
           >
             <Sliders className="w-3.5 h-3.5 text-[#ff8a1e]" />
             <span>Frames (120)</span>
           </button>
 
           {/* Shop CTA button */}
-          <MagneticButton
-            type="button"
+          <button
             id="btn-nav-shop-now"
             onClick={onOpenCart}
-            aria-label="Open cart and buy now"
-            className="group inline-flex items-center space-x-2 px-5 py-2 rounded-full bg-[#ff8a1e] hover:bg-[#ff9c3a] text-[#0b0704] font-semibold text-xs tracking-wider uppercase shadow-[0_0_20px_rgba(255,138,30,0.3)] hover:shadow-[0_0_30px_rgba(255,138,30,0.5)] cursor-pointer focus-visible:ring-2 focus-visible:ring-white"
+            className="relative group inline-flex items-center space-x-2 px-5 py-2 rounded-full bg-[#ff8a1e] hover:bg-[#ff9c3a] text-[#0b0704] font-semibold text-xs tracking-wider uppercase transition-all duration-300 transform active:scale-95 shadow-[0_0_20px_rgba(255,138,30,0.3)] hover:shadow-[0_0_30px_rgba(255,138,30,0.5)] cursor-pointer"
           >
             <ShoppingBag className="w-3.5 h-3.5" />
-            <span className="relative inline-block overflow-hidden h-[1.25em] leading-[1.25em]">
-              <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">
-                Shop Now
-              </span>
-              <span className="absolute left-0 top-full inline-block transition-transform duration-300 group-hover:-translate-y-full">
-                Shop Now
-              </span>
-            </span>
-          </MagneticButton>
+            <span>Shop Now</span>
+          </button>
         </div>
       </div>
     </header>
